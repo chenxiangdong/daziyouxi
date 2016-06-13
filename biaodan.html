@@ -1,0 +1,145 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="../../../代码/js/function/function.js"></script>
+</head>
+<style>
+*{
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+	.box{
+		width: 300px;
+		height: 400px;
+		position: absolute;
+		padding: 10px 20px;
+		left: 0;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		margin: auto;
+		border:1px solid #666;
+	}
+	input{
+		border:0;
+		border-bottom: 1px solid #ff34da;
+		outline: none;
+		margin-top: 10px;
+	}
+	.zhuce{
+		height: 30px;
+		display: inline-block;
+		background: #ccc;
+		color: #666;
+		line-height: 30px;
+		padding: 3px 10px;
+		margin-top: 10px;
+	}
+	.warn{
+		color: red;
+		font-size:12px;
+	}
+	.zhucez{
+		height: 30px;
+		display: inline-block;
+		background: red;
+		color: #fff;
+		line-height: 30px;
+		padding: 3px 10px;
+		margin-top: 10px;
+	}
+</style>
+<body>
+	<ul class="box">
+		<li>
+			<input type="text"name="user"><span class="tip"></span>
+		</li>
+		<li>
+			<input type="password"name="pass"><span class="tip"></span>
+		</li>
+		<li>
+			<input type="password"name="pass2"><span class="tip"></span>
+		</li>
+		<div class="zhuce">注册</div>
+	</ul>
+
+</body>
+<script>
+	var user=$("input")[0]
+	var mima=$("input")[1]
+	var zaici=$("input")[2]
+	var zc=$(".zhuce")[0]
+	var zhuce={
+		"yi":false,
+		"er":false,
+		"san":false,
+	}
+	var shuju={
+		"zhangsan":true,
+		"lisi":true,
+		"lol":true
+	}
+	function addjinggao(el,a){
+		var tip=el.parentElement.querySelector(".tip")
+		tip.innerHTML=a
+		tip.className="warn tip"
+	}
+	function removejinggao(el){
+		var tip=el.parentElement.querySelector(".tip")
+		console.log(tip)
+		tip.innerHTML=""
+		tip.classList.remove("warn")
+	}
+	user.onchange=function(){
+		if(shuju[this.value]){
+			addjinggao(this,"用户已注册")
+			zhuce["yi"]=false
+		}else{
+			removejinggao(this)
+			zhuce["yi"]=true
+		}
+		jiancha()
+	}
+	mima.onchange=function(){
+		if(this.value.length<6){
+			addjinggao(this,"长度不够")
+			zhuce["er"]=false
+		}else{
+			removejinggao(this)
+			zhuce["er"]=true
+		}
+		jiancha()
+	}
+	zaici.onchange=function(){
+		if(this.value!==mima.value){
+			addjinggao(this,"请重新输入")
+			zhuce["san"]=false
+		}else{
+			removejinggao(this)
+			zhuce["san"]=true
+		}
+		jiancha()
+	}
+	zc.onclick=function(){
+		if(this.hasAttribute("dianji","shi")){
+			zc.innerHTML="注册中..."
+			var t=setInterval(move,3000)
+			function move(){
+				location.href=("key.html")
+			}
+		}
+	}
+	function jiancha(){
+		if(zhuce["yi"]&&zhuce["er"]&&zhuce["san"]){
+			zc.className="zhucez"
+			zc.setAttribute("dianji","shi")
+		}else{
+			zc.classList.remove("zhucez")
+			zc.removeAttribute("dianji")
+		}
+	}
+</script>
+</html>

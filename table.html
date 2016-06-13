@@ -1,0 +1,197 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+	<title>Document</title>
+	<script src="../../../代码/js/function/function.js"></script>
+</head>
+<style>
+*{
+	padding: 0;
+	margin: 0;
+}
+	input{
+		border:none;
+		border-bottom: 1px solid #ad45fe;
+		margin-top:20px;
+		outline: none;
+		margin-left: 15px;
+	}
+	.warn{
+		color: #ffdd11;
+		font-size: 12px;
+	}
+	.success{
+		color: #dd22ff;
+		font-size: 12px;
+	}
+	.box{
+		width: 300px;
+		height: 500px;
+		padding: 0 10px;
+		border:1px solid #666;
+		margin: 0 auto;
+	}
+	.zhuce{
+		height: 50px;
+		padding: 10px 20px;
+		background: #ccc;
+		line-height: 50px;
+		display: inline;
+		margin-left: 20px;
+
+	}
+	.zhucez{
+		height: 50px;
+		padding: 10px 20px;
+		background: red;
+		line-height: 50px;
+		display: inline;
+		margin-left: 20px;
+	}
+</style>
+<body>
+	<!-- <input type="text" value="aa"name="a">
+	nan<input type="radio" value="1" name="b">
+	nv<input type="radio"value="2"name="b">
+	aihao:
+	lanqiu<input type="checkbox"value="3"name="c">
+	zuqiu<input type="checkbox"value="4"name="c">
+	youyong<input type="checkbox"value="4"name="c">
+	<select name="d">
+		<option value="5"name="f">5</option>
+		<option value="6"name="f">6</option>
+	</select> -->
+	<div class="box">
+		<input type="text"name="user">
+		<span class="zi2"></span>
+		<input type="password"name="mima">
+		<span class="zi1"></span>
+		<br>
+		<input type="password"name="zaici">
+		<span class="zi"></span>
+		<br>
+		<div class="zhuce">注册</div>
+	</div>
+</body>
+<script>
+var user=$("input")[0]
+var mi=$("input")[1]
+var zai=$("input")[2]
+var zi=$(".zi")[0]
+var cd=$(".zi1")[0]
+var yh=$(".zi2")[0]
+var zc=$(".zhuce")[0]
+var shuju={}
+for(var i=0;i<300;i++){
+	shuju["lol"+i]=true
+}
+var zhuce={
+	"yi":false,
+	"er":false,
+	"san":false,
+}
+function jiancha(){
+	if(zhuce["yi"]&&zhuce["er"]&&zhuce["san"]){
+		zc.className="zhucez zhuce"
+		zc.setAttribute("dianji","shi")
+	}else{
+		zc.classList.remove("zhucez")
+		zc.removeAttribute("dianji")
+	}
+}
+zc.onclick=function(){
+	if(zc.hasAttribute("dianji","shi")){
+	zc.innerHTML="注册中..."
+	var t=setInterval(move,3000) 
+		function move(){
+			location.href=("key.html")
+		}
+	}
+}
+user.onchange=function(){
+	if(shuju[this.value]){
+		yh.className="warn"
+		yh.innerHTML="该用户名已注册"
+		zhuce["yi"]=false
+	}else{
+		zhuce["yi"]=true
+		yh.innerHTML=""
+		yh.classList.remove("warn")
+	}
+	jiancha()
+}
+mi.onchange=function(){
+	if(this.value.length<6){
+		cd.className="warn"
+		cd.innerHTML="长度不够"
+		zhuce["er"]=false
+	}else{
+		zhuce["er"]=true
+		cd.innerHTML=""
+		cd.classList.remove("warn")
+	}
+	jiancha()
+}
+zai.onchange=function(){
+ 	if(this.value!==mi.value){
+ 	 	zi.innerHTML="错"
+ 		zi.className="warn"
+ 		zhuce["san"]=false
+ 	}else{
+ 		zhuce["san"]=true
+ 		zi.classList.remove("warn")
+ 		zi.innerHTML=""
+ 	}
+ 	jiancha()
+}
+
+	// var k=$("input")[0]
+	// k.onfocus=function(){
+	// 	console.log("focus")
+	// }
+	// k.onblur=function(){
+	// 	console.log("blur")
+	// }
+	// k.onchange=function(){
+	// 	console.log("change")
+	// }
+	// var x=document.getElementsByName("b")
+	// for(var i=0;i<x.length;i++){
+	// 	x[i].onfocus=function(){
+	// 		console.log("focus")
+	// 	}
+	// 	x[i].onblur=function(){
+	// 		console.log("blur")
+	// 	}
+	// 	x[i].onchange=function(){
+	// 		console.log("change")
+	// 	}
+	// }
+	
+	// var aihao=document.getElementsByName("c")
+	// for(var i=0;i<aihao.length;i++){
+	// 	aihao[i].onfocus=function(){
+	// 		console.log("focus")
+	// 	}
+	// 	aihao[i].onblur=function(){
+	// 		console.log("blur")
+	// 	}
+	// 	aihao[i].onchange=function(){
+	// 		console.log("change")
+	// 	}
+	// }
+	// var xia=document.getElementsByName("d")[0]
+	// 	xia.onfocus=function(){
+	// 		console.log("focus")
+	// 	}
+	// 	xia.onblur=function(){
+	// 		console.log("blur")
+	// 	}
+	// 	xia.onchange=function(){
+	// 		console.log("change")
+	// 	}
+	
+	
+</script>
+</html>
