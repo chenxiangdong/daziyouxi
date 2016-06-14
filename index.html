@@ -4,137 +4,422 @@
 	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
 	<title>Document</title>
 	<script src="../../../代码/js/function/function.js"></script>
+	<script src="../../../代码/js/function/animate.js"></script>
+	<script src="data.js"></script>
 </head>
 <style>
-	.da{
-		width: 100px;
-		height: 100px;
-		border:1px solid #000;
-		float: left;
+*{
+	padding: 0;
+	margin: 0;
+}
+body,html{
+	width: 100%;
+	height: 100%;
+}
+	.box{
+		width: 100%;
+		height: 100%;
+		margin: 50 auto;
+		background: url(2.png);
+		padding: 5px;
+		position: relative;
+		overflow: hidden;
 	}
-	.selected{
-		background:rgba(0,0,0,0.1);
+	.zi{
+		width: 106px;
+		height: 104px;
+		text-align: center;
+		line-height: 104px;
+		font-size: 40px;
+		color: #fff;
+		background: url(1.png);
+		position: absolute;
+		top:0;
+		left: 0;
+	}
+	.xia{
+		width: 105px;
+		height: 99px;
+		position: absolute;
+		left: 0;
+		bottom: 0;
+		background: url(3.png);
+		z-index: 3;
+	}
+	.hua{
+		width: 120px;
+		height: 40px;
+		line-height: 40px;
+		text-align: center;
+		color: #987654;
+		border-radius: 50%;
+		border:1px solid red;
+		position: absolute;
+		left: 0;
+		top:-40px;
+		z-index: 5;
+	}
+	.kaishiyouxi{
+		width: 189px;
+		height: 190px;
+		position: absolute;
+		left: 40%;
+		top: 25%;
+		z-index: 10;
+		text-align: center;
+		line-height: 200px;
+		color: #fff;
+		font-size: 60px;
+		background: url(kai.png);
+	}
+	.jixuyouxi{
+		background: #CD3B81;
+		width: 400px;
+		height: 200px;
+		position: absolute;
+		left: 35%;
+		top: 35%;
+		z-index: 10;
+		text-align: center;
+		line-height: 200px;
+		color: #fff;
+		font-size: 60px;
+		display: none;
+	}
+	.jiandan{
+		width: 145px;
+		height: 48px;
+		position: absolute;
+		top:60%;
+		left: 25%;
+		z-index: 8;
+		background: url(j.png);
+		display: none;
+	}
+	.putong{
+		width: 145px;
+		height: 48px;
+		position: absolute;
+		top:60%;
+		left: 40%;
+		z-index: 8;
+		background: url(p.png);
+		display: none;
+	}
+	.kunnan{
+		width: 145px;
+		height: 48px;
+		position: absolute;
+		top:60%;
+		left: 55%;
+		z-index: 8;
+		background: url(k.png);
+		display: none;
 	}
 </style>
 <body>
-	<div class="da"></div>
-	<div class="da"></div>
-	<div class="da"></div>
-	<div class="da"></div>
-	<div class="da"></div>
+	<div class="kaishiyouxi"></div>
+	<div class="jiandan"></div>
+	<div class="putong"></div>
+	<div class="kunnan"></div>
+	<div class="jixuyouxi">继续游戏</div>
+	<div class="box">
+		<div class="xia">
+			<div class="hua">别砸我。。。</div>
+		</div>
+	</div>
 </body>
 <script>
-  var a=$(".da")
-    for(var i=0;i<a.length;i++){
-    	a[i].onclick=(function(){
-    		var flag=true
-    		return function(e){
-	    		if(flag){
-	    			if(e.ctrlKey){
-	    				this.className="da selected"
-	    				var r=Math.floor(Math.random()*255)
-	    				var g=Math.floor(Math.random()*255)
-	    				var b=Math.floor(Math.random()*255)
-	    				this.style.backgroundColor="rgb("+r+","+g+","+b+")"
-	    				flag=false
-	    			}
-	    		}else{
-	    			this.style.position="static"
-	    			this.className="da"
-	    			this.style.backgroundColor="transparent"
-	    			flag=true
-	    		}
-    		}
-    	})()
-    }
-    document.ondblclick=function(e){
-    	var b=$(".selected")
-    	for(i=0;i<b.length;i++){
-    		var h=b[i].offsetHeight
-    		var w=b[i].offsetWidth
-    		var top=e.clientY-h/2
-    		var left=e.clientX-w/2
-    		b[i].style.position="absolute"
-    		b[i].style.top=top+"px"
-    		b[i].style.left=left+"px"
-    	}
-    }
-    document.onmousedown=function(e){
-    	document.onmouseup=function(ev){
-    		var top=ev.clientY-e.clientY
-    		var left=ev.clientX-e.clientX
-    		var sel=$(".selected")
-    		for(var i=0;i<sel.length;i++){
-    			sel[i].style.top=sel[i].offsetTop+top+"px"
-    			sel[i].style.left=sel[i].offsetLeft+left+"px"
-    		}
-    	}
-    }
-	// var a=$(".da")[0]
-	// a.onclick=(function(){
-	// 	var kaiguan=true
-	// 	return function(e){
-	// 		if(e.shiftKey&&e.altKey&&e.ctrlKey){
-	// 			this.className=kaiguan?"da selected":"da"
-	// 			console.log(a)
-	// 			kaiguan=!kaiguan
-	// 		}
-	// 	}
+var kaishi=$(".kaishiyouxi")[0]
+var xia=$(".xia")[0]
+var xx=5
+var zanshi
+var jixu=$(".jixuyouxi")[0]
+var box=$(".box")[0]
+var j=$(".jiandan")[0]
+var p=$(".putong")[0]
+var k=$(".kunnan")[0]
+kaishi.onclick=function(){
+	kaishi.style.display="none"
+	j.style.display="block"
+	k.style.display="block"
+	p.style.display="block"
+	j.onclick=function(){
+		j.style.display="none"
+		k.style.display="none"
+		p.style.display="none"
+		var t=setInterval(move,50)
+		function move(e){
+		if(xia.offsetLeft>box.offsetWidth-xia.offsetWidth||xia.offsetLeft<0){
+			xx=-xx
+		}
+			xia.style.left=xia.offsetLeft+xx+"px"
+	
+		}
+		var zimujihe={}
+ 		function createzimu(){
+ 		do{
+ 			var zimu=String.fromCharCode(Math.floor(Math.random()*25+97))
+ 		}while(zimujihe[zimu])
+ 			var el=document.createElement("div")
+ 			el.className="zi"
+ 			el.innerHTML=zimu
+ 			box.appendChild(el)
+ 			el.style.left=Math.random()*(box.offsetWidth-el.offsetWidth)+"px"
+ 			var ma=Math.ceil(Math.random()*4)
+ 			zimujihe[zimu]={yuan:el,top:0,ran:ma} 
+ 		}  
+ 		function removezimu(zimu){
+		 	var el=zimujihe[zimu].yuan
+		 	el.parentElement.removeChild(el)
+		 	delete zimujihe[zimu]
+		 }
+		 createzimu()
+		 createzimu()
+		 
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 document.onkeyup=function(e){
+				if(e.keyCode===32){
+					zanting(e)
+					return
+				}else{
+					var key=String.fromCharCode(e.keyCode).toLowerCase()
+		 			console.log(key)
+		 			if(zimujihe[key]){
+		 				removezimu(key)
+		 				createzimu()
+		 			}
+				}
+		 }
+		 var t=setInterval(diao,30)
+		 var x=box.offsetHeight
+		 function diao(){
+		 	var arr=[]
+		 	for(var i in zimujihe){
+		 			zimujihe[i].top+=zimujihe[i].ran
+		 		zimujihe[i].yuan.style.top=zimujihe[i].top+"px"
+		 		if(zimujihe[i].top>x){
+		 			arr.push(i)
+		 		}
+		 	}
+		 	if(arr.length>0){
+		 		for(var j=0;j<arr.length;j++){
+		 			removezimu(arr[j])
+		 			createzimu()
+		 		}
+		 		
+		 	}
+		 }		
+		function zanting(e){
+		if(t){
+			clearInterval(t)
+			zanshi=xx
+			xx=0
+			t=null
+			jixu.style.display="block"
+		}else{
+			t=setInterval(diao,30)
+			xx=zanshi
+			jixu.style.display="none"
+		}
+		}
+	}
+	p.onclick=function(){
+		j.style.display="none"
+		k.style.display="none"
+		p.style.display="none"
+		var t=setInterval(move,50)
+		function move(e){
+		if(xia.offsetLeft>box.offsetWidth-xia.offsetWidth||xia.offsetLeft<0){
+			xx=-xx
+		}
+			xia.style.left=xia.offsetLeft+xx+"px"
+	
+		}
+		var zimujihe={}
+ 		function createzimu(){
+ 		do{
+ 			var zimu=String.fromCharCode(Math.floor(Math.random()*25+97))
+ 		}while(zimujihe[zimu])
+ 			var el=document.createElement("div")
+ 			el.className="zi"
+ 			el.innerHTML=zimu
+ 			box.appendChild(el)
+ 			el.style.left=Math.random()*(box.offsetWidth-el.offsetWidth)+"px"
+ 			var ma=Math.ceil(Math.random()*4+3)
+ 			zimujihe[zimu]={yuan:el,top:0,ran:ma} 
+ 		}  
+ 		function removezimu(zimu){
+		 	var el=zimujihe[zimu].yuan
+		 	el.parentElement.removeChild(el)
+		 	delete zimujihe[zimu]
+		 }
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 document.onkeyup=function(e){
+				if(e.keyCode===32){
+					zanting(e)
+					return
+				}else{
+					var key=String.fromCharCode(e.keyCode).toLowerCase()
+		 			console.log(key)
+		 			if(zimujihe[key]){
+		 				removezimu(key)
+		 				createzimu()
+		 			}
+				}
+		 }
+		 var t=setInterval(diao,30)
+		 var x=box.offsetHeight
+		 function diao(){
+		 	var arr=[]
+		 	for(var i in zimujihe){
+		 			zimujihe[i].top+=zimujihe[i].ran
+		 		zimujihe[i].yuan.style.top=zimujihe[i].top+"px"
+		 		if(zimujihe[i].top>x){
+		 			arr.push(i)
+		 		}
+		 	}
+		 	if(arr.length>0){
+		 		for(var j=0;j<arr.length;j++){
+		 			removezimu(arr[j])
+		 			createzimu()
+		 		}
+		 		
+		 	}
+		 }		
+		function zanting(e){
+		if(t){
+			clearInterval(t)
+			zanshi=xx
+			xx=0
+			t=null
+			jixu.style.display="block"
+		}else{
+			t=setInterval(diao,30)
+			xx=zanshi
+			jixu.style.display="none"
+		}
+		}
+	}
+	k.onclick=function(){
+		j.style.display="none"
+		p.style.display="none"
+		k.style.display="none"
+		var t=setInterval(move,50)
+		function move(e){
+		if(xia.offsetLeft>box.offsetWidth-xia.offsetWidth||xia.offsetLeft<0){
+			xx=-xx
+		}
+			xia.style.left=xia.offsetLeft+xx+"px"
+	
+		}
+		var zimujihe={}
+ 		function createzimu(){
+ 		do{
+ 			var zimu=String.fromCharCode(Math.floor(Math.random()*25+97))
+ 		}while(zimujihe[zimu])
+ 			var el=document.createElement("div")
+ 			el.className="zi"
+ 			el.innerHTML=zimu
+ 			box.appendChild(el)
+ 			el.style.left=Math.random()*(box.offsetWidth-el.offsetWidth)+"px"
+ 			var ma=Math.ceil(Math.random()*4+7)
+ 			zimujihe[zimu]={yuan:el,top:0,ran:ma} 
+ 		}  
+ 		function removezimu(zimu){
+		 	var el=zimujihe[zimu].yuan
+		 	el.parentElement.removeChild(el)
+		 	delete zimujihe[zimu]
+		 }
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 createzimu()
+		 document.onkeyup=function(e){
+				if(e.keyCode===32){
+					zanting(e)
+					return
+				}else{
+					var key=String.fromCharCode(e.keyCode).toLowerCase()
+		 			console.log(key)
+		 			if(zimujihe[key]){
+		 				removezimu(key)
+		 				createzimu()
+		 			}
+				}
+		 }
+		 var t=setInterval(diao,30)
+		 var x=box.offsetHeight
+		 function diao(){
+		 	var arr=[]
+		 	for(var i in zimujihe){
+		 			zimujihe[i].top+=zimujihe[i].ran
+		 		zimujihe[i].yuan.style.top=zimujihe[i].top+"px"
+		 		if(zimujihe[i].top>x){
+		 			arr.push(i)
+		 		}
+		 	}
+		 	if(arr.length>0){
+		 		for(var j=0;j<arr.length;j++){
+		 			removezimu(arr[j])
+		 			createzimu()
+		 		}
+		 		
+		 	}
+		 }		
+		function zanting(e){
+		if(t){
+			clearInterval(t)
+			zanshi=xx
+			xx=0
+			t=null
+			jixu.style.display="block"
+		}else{
+			t=setInterval(diao,30)
+			xx=zanshi
+			jixu.style.display="none"
+		}
+		}
+	}
+	
+}
 
-	// })()
-	// var a=$(".da")
-	// for(var i=0;i<a.length;i++){
-	// 	a[i].onclick=(function(){
-	// 		var kaiguan=true
-	// 		return function(e){
-	// 			if(kaiguan){
-	// 				if(e.ctrlKey){
-	// 					this.className="da selected"
-	// 					var r=Math.floor(Math.random()*255)
-	// 					var g=Math.floor(Math.random()*255)
-	// 					var b=Math.floor(Math.random()*255)
-	// 					this.style.background="rgb("+r+","+g+","+b+")"
-	// 					kaiguan=!kaiguan
-	// 				}	
-	// 			}else{
-	// 				this.className="da"
-	// 				this.style.background="transparent"
-	// 				this.style.position="static"
-	// 				kaiguan=true
-	// 			}
-	// 				document.ondblclick=function(e){
-	// 					var b=$(".selected")
-	// 					for(var i=0;i<b.length;i++){	
-	// 						var h=b[i].offsetHeight
-	// 						var w=b[i].offsetWidth
-	// 						var left=e.clientX-w/2
-	// 						var top=e.clientY-h/2
-	// 						b[i].style.position="absolute"
-	// 						b[i].style.left=left+"px"
-	// 						b[i].style.top=top+"px"
-							
-	// 					}
-	// 				}
-	// 		}
-	// 	})()	
+// document.onkeyup=function(e){
+// 	var key=String.fromCharCode(e.keyCode).toLowerCase()
+// 	if(key==="a"){
+// 		box.removeChild(zi)
+// 		var div=document.createElement("div")
+// 		div.className="zi"
+// 		div.innerHTML=String.fromCharCode(Math.floor(Math.random()*25
+
+// 			 +97))
+// 		box.appendChild(div)
+		
+// 	}
+// }
+	// document.onkeydown=function(e){
+	// 	console.log(e)
 	// }
-	// a.onmouseover=function(e){
-	// 	console.log("mouseover",e)
+	// document.onkeypress=function(e){
+	// 	console.log(e)
 	// }
-	// a.onmousemove=function(e){
-	// 	console.log("mousemove",e)
+	// document.onkeyup=function(e){
+	// 	console.log(e)
 	// }
-	// a.onmouseout=function(e){
-	// 	console.log("mouseout",e)
+	// var obj={}
+	// for(var i=10000;i<10100;i++){
+		
+	// 	obj[i]=String.fromCharCode(i)
+		
 	// }
-	// a.onmousedown=function(e){
-	// 	console.log("mousedown",e)
-	// }
-	// a.ondblclick=function(e){
-	// 	console.log("dblclick",e)
-	// }
-	// a.onmouseup=function(e){
-	// 	console.log("mouseup",e)
-	// }
+	// console.log(JSON.stringify(obj))
+
 </script>
 </html>
